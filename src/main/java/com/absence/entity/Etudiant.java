@@ -1,11 +1,16 @@
 package com.absence.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.absence.entity.enums.Role;
 
@@ -20,53 +25,22 @@ public class Etudiant implements Serializable {
 	private String password;
 	private String cne;
 	private String nom;
-	private Long idclasse;
-	
+	@ManyToOne
+	@JoinColumn(name = "id_classe")
+	private Classe classe;
+	@OneToMany(mappedBy = "etudiant")
+	private Collection<Absence> absences;
 	
 	public Etudiant() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	
-	
-	public Etudiant(String username, String password, String cne, String nom, Long classe) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.cne = cne;
-		this.nom = nom;
-		this.idclasse = classe;
+		absences = new ArrayList<>();
 	}
 
-
-
-
-	public Etudiant(Long id, String username, String password, String cne, String nom, Long classe) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.cne = cne;
-		this.nom = nom;
-		this.idclasse = classe;
-	}
-
-
-
-
-	public User toUser() {
-		return new User(this.username, this.password, Role.ETUDIANT);
-	}
-
-
-
+	
 
 	public Long getId() {
 		return id;
 	}
-
 
 
 
@@ -76,11 +50,9 @@ public class Etudiant implements Serializable {
 
 
 
-
 	public String getUsername() {
 		return username;
 	}
-
 
 
 
@@ -90,11 +62,9 @@ public class Etudiant implements Serializable {
 
 
 
-
 	public String getPassword() {
 		return password;
 	}
-
 
 
 
@@ -104,11 +74,9 @@ public class Etudiant implements Serializable {
 
 
 
-
 	public String getCne() {
 		return cne;
 	}
-
 
 
 
@@ -118,11 +86,9 @@ public class Etudiant implements Serializable {
 
 
 
-
 	public String getNom() {
 		return nom;
 	}
-
 
 
 
@@ -132,25 +98,66 @@ public class Etudiant implements Serializable {
 
 
 
-
-	public Long getClasse() {
-		return idclasse;
+	public Classe getClasse() {
+		return classe;
 	}
 
 
 
-
-	public void setClasse(Long classe) {
-		this.idclasse = classe;
+	public void setClasse(Classe classe) {
+		this.classe = classe;
 	}
 
+
+
+	public Collection<Absence> getAbsences() {
+		return absences;
+	}
+
+
+
+	public void setAbsences(Collection<Absence> absences) {
+		this.absences = absences;
+	}
 
 
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
+
+
+	public Etudiant(String username, String password, String cne, String nom, Classe classe,
+			Collection<Absence> absences) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.cne = cne;
+		this.nom = nom;
+		this.classe = classe;
+		this.absences = absences;
+	}
+
+
+
+	public Etudiant(Long id, String username, String password, String cne, String nom, Classe classe,
+			Collection<Absence> absences) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.cne = cne;
+		this.nom = nom;
+		this.classe = classe;
+		this.absences = absences;
+	}
+
+
+
+	public User toUser() {
+		return new User(this.username, this.password, Role.ETUDIANT);
+	}
 	
 	
 	

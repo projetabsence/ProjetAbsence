@@ -1,11 +1,14 @@
 package com.absence.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Module implements Serializable {
@@ -15,21 +18,25 @@ public class Module implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	private String nom;
+	@OneToMany(mappedBy = "module")
+	private Collection<Absence> absences;
 	
 	public Module() {
 		super();
-		// TODO Auto-generated constructor stub
+		absences = new ArrayList<>();
 	}
 
-	public Module(Long id, String nom) {
+	public Module(Long id, String nom, Collection<Absence> absences) {
 		super();
 		this.id = id;
 		this.nom = nom;
+		this.absences = absences;
 	}
 
-	public Module(String nom) {
+	public Module(String nom, Collection<Absence> absences) {
 		super();
 		this.nom = nom;
+		this.absences = absences;
 	}
 
 	public Long getId() {
@@ -48,9 +55,18 @@ public class Module implements Serializable {
 		this.nom = nom;
 	}
 
+	public Collection<Absence> getAbsences() {
+		return absences;
+	}
+
+	public void setAbsences(Collection<Absence> absences) {
+		this.absences = absences;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 	
 	
 	
