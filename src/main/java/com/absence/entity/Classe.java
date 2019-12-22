@@ -30,6 +30,7 @@ public class Classe implements Serializable {
 		this.filiere = filiere;
 		this.groupe = groupe;
 	}
+	
 	public Classe(Long id, Cycle cycle, Annee annee, Filiere filiere, int groupe) {
 		super();
 		this.id = id;
@@ -38,10 +39,11 @@ public class Classe implements Serializable {
 		this.filiere = filiere;
 		this.groupe = groupe;
 	}
+	
 	public Classe() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public Long getId() {
 		return id;
 	}
